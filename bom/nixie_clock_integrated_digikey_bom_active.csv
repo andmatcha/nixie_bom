@@ -1,0 +1,45 @@
+Digi-Key Part Number,Manufacturer,Manufacturer Part Number,Customer Reference,Quantity,Reference Designator,Description,Package,Notes
+296-26969-1-ND,Texas Instruments,TPS40210DGQR,U1,1,U1,"Boost controller, TPS40210, 10-HVSSOP",10-HVSSOP,Power: 12V to 170V boost controller
+732-1702-1-ND,Wurth Elektronik,7447709102,L1,1,L1,"Fixed inductor, 1mH, 900mA, shielded",SMD,Power: boost inductor
+497-13937-1-ND,STMicroelectronics,STD10N60M2,Q1,1,Q1,"N-channel MOSFET, 600V, 7.5A, DPAK",DPAK,Power: boost switch
+MURS160-FDICT-ND,Diodes Incorporated,MURS160-13-F,D1,1,D1,"Fast recovery diode, 600V, 1A, SMB",SMB,Power: boost rectifier
+490-14678-1-ND,Murata Electronics,GRM31CR71E106KA12K,CIN1 CIN2,2,CIN1 CIN2,"Ceramic capacitor, 10uF, 25V, X7R, 1206",1206,Power: input capacitors
+490-3550-1-ND,Murata Electronics,GRM55DR72E105KW01L,COUT1 COUT2 COUT3,3,COUT1 COUT2 COUT3,"Ceramic capacitor, 1uF, 250V, X7R, 2220",2220,Power: output capacitors
+490-10673-1-ND,Murata Electronics,GCM188R71E105KA64D,CVDD1 CBP1,2,CVDD1 CBP1,"Ceramic capacitor, 1uF, 25V, X7R, 0603",0603,Power: VDD and BP bypass
+490-3290-1-ND,Murata Electronics,GRM188R71E224KA88D,CSS1,1,CSS1,"Ceramic capacitor, 0.22uF, 25V, X7R, 0603",0603,Power: soft-start capacitor
+490-4767-1-ND,Murata Electronics,GCM1885C1H101JA16D,CRC1 CIFLT1,2,CRC1 CIFLT1,CAP CER 100PF 50V C0G/NP0 0603,0603,Power: oscillator and ISNS filter; Replacement for GRM1885C1H101JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。100pF、50V、C0G/NP0、0603を維持し、アクティブかつ在庫あり。
+490-1459-1-ND,Murata Electronics,GRM1885C1H222JA01D,CCOMP1,1,CCOMP1,"Ceramic capacitor, 2200pF, 50V, C0G/NP0, 0603",0603,Power: compensation capacitor
+490-GCM1885C1H470GA16JCT-ND,Murata Electronics,GCM1885C1H470GA16J,CHF1,1,CHF1,CAP CER 47PF 50V C0G/NP0 0603,0603,Power: high-frequency compensation capacitor; Replacement for GCM1885C1H470JA16D: 旧品はDigi-Keyステータスが新規設計向けに不適合。47pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
+P17678CT-ND,Panasonic Industry,ERJ-8BSFR10V,RSNS1,1,RSNS1,"Current sense resistor, 0.1 Ohm, 1%, 0.5W, 1206",1206,Power: MOSFET source sense resistor
+541-1.00KHCT-ND,Vishay Dale,CRCW06031K00FKEA,RIFLT1 REN1,2,RIFLT1 REN1,RES SMD 1K OHM 1% 1/8W 0603,0603,Power: ISNS filter and DIS/EN series resistor; Replacement for ERJ-3EKF1001V: 旧品はDigi-Key在庫0。1kOhm、1%、0603、厚膜抵抗を維持し、電力定格は同等以上、アクティブかつ在庫あり。
+P1.00MCCT-ND,Panasonic Industry,ERJ-6ENF1004V,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,17,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,"Chip resistor, 1M Ohm, 1%, 0805",0805,"Power/control: oscillator, anode off hold, cathode pre-bias"
+P10.2HCT-ND,Panasonic Industry,ERJ-3EKF10R2V,RG1,1,RG1,"Chip resistor, 10.2 Ohm, 1%, 0603",0603,Power: MOSFET gate resistor
+P20.0KCCT-ND,Panasonic Industry,ERJ-6ENF2002V,RFB1 RFB2 RFB3 RFB4 RFB5,5,RFB1 RFB2 RFB3 RFB4 RFB5,"Chip resistor, 20k Ohm, 1%, 0805",0805,"Power: FB upper divider, five in series"
+P412CCT-ND,Panasonic Industry,ERJ-6ENF4120V,RFB6,1,RFB6,"Chip resistor, 412 Ohm, 1%, 0805",0805,Power: FB lower divider
+P68.0KCCT-ND,Panasonic Industry,ERJ-6ENF6802V,RCOMP1,1,RCOMP1,"Chip resistor, 68k Ohm, 1%, 0805",0805,Power: compensation resistor
+P1.10MCCT-ND,Panasonic Industry,ERJ-6ENF1104V,RBLD1 RBLD2 RBLD3,3,RBLD1 RBLD2 RBLD3,"Chip resistor, 1.1M Ohm, 1%, 0805",0805,"Power: output bleeder, three in series"
+P100KHCT-ND,Panasonic Industry,ERJ-3EKF1003V,RENPD1 ROE1 RBOOT1 RCANSTB1 RCANSHDN1 RALPD1-RALPD6 RCOLPD1-RCOLPD4 R3V3EN1,16,RENPD1 ROE1 RBOOT1 RCANSTB1 RCANSHDN1 RALPD1-RALPD6 RCOLPD1-RCOLPD4 R3V3EN1,"Chip resistor, 100k Ohm, 1%, 0603",0603,Power/control: pull-down and pull-up resistors
+497-STM32G0B1CBT6-ND,STMicroelectronics,STM32G0B1CBT6,U2,1,U2,"MCU, ARM Cortex-M0+, 128KB flash, 48-LQFP",48-LQFP,Control: MCU
+31-AP63203QWU-7CT-ND,Diodes Incorporated,AP63203QWU-7,U3,1,U3,"Buck regulator, 3.3V fixed, 2A, TSOT-23-6",TSOT-23-6,Control: 12V to 3.3V regulator
+732-10705-1-ND,Wurth Elektronik,74439346068,L2,1,L2,"Fixed inductor, 6.8uH, 6.5A, shielded",SMD,Control: 3.3V buck inductor
+296-49940-1-ND,Texas Instruments,TCAN334GDR,U4,1,U4,"CAN transceiver, 3.3V, 5Mbps, SOIC-8",SOIC-8,Control: CAN physical layer
+296-14857-1-ND,Texas Instruments,SN74HC595DR,U5 U6 U7,3,U5 U6 U7,"8-bit shift register, serial-in parallel-out, SOIC-16",SOIC-16,Control: display output expansion
+296-26653-1-ND,Texas Instruments,SN75468DR,U8 U9,2,U8 U9,"7-channel Darlington sink driver, 100V, 500mA, SOIC-16",SOIC-16,Control: IN-12 cathode sink drivers
+MMBTA92-FDICT-ND,Diodes Incorporated,MMBTA92-7-F,QAH1 QAH2 QAH3 QAH4 QAH5 QAH6,6,QAH1 QAH2 QAH3 QAH4 QAH5 QAH6,"PNP transistor, 300V, 500mA, SOT-23",SOT-23,Control: IN-12 anode high-side switches
+MMBTA42-FDICT-ND,Diodes Incorporated,MMBTA42-7-F,QAL1 QAL2 QAL3 QAL4 QAL5 QAL6 QCOL1 QCOL2 QCOL3 QCOL4,10,QAL1 QAL2 QAL3 QAL4 QAL5 QAL6 QCOL1 QCOL2 QCOL3 QCOL4,"NPN transistor, 300V, 500mA, SOT-23",SOT-23,Control: anode level shift and INS-1 low-side switches
+296-ESD2CAN24DBZRQ1CT-ND,Texas Instruments,ESD2CAN24DBZRQ1,D2,1,D2,"CAN ESD protection diode, 24V, SOT-23",SOT-23,Control: CANH/CANL ESD protection
+50-ECS-80-12-33-JGN-CT-ND,ECS Inc.,ECS-80-12-33-JGN-TR,Y1,1,Y1,"Crystal, 8MHz, 12pF, 4-SMD",SMD,Control: MCU HSE crystal
+ED10562-ND,On Shore Technology Inc.,OSTVN03A150,JCAN1,1,JCAN1,"Terminal block, 3 position, 2.54mm",Through-Hole,Control: CANH/CANL/GND connector
+SAM8796-ND,Samtec Inc.,FTSH-105-01-F-DV-K,JSWD1,1,JSWD1,"Header, 10 position, 1.27mm, SMD",SMD,Control: SWD debug connector
+490-GRJ31CR71H475KE11KCT-ND,Murata Electronics,GRJ31CR71H475KE11K,C3V3IN1 C3V3IN2,2,C3V3IN1 C3V3IN2,CAP CER MLCC,1206,Control: 3.3V buck input capacitors; Replacement for GRM31CR71H475KA12L: 旧品はDigi-Key在庫0。4.7uF、50V、X7R、1206を維持し、アクティブかつ在庫あり。
+1276-3047-1-ND,Samsung Electro-Mechanics,CL31A226KAHNNNE,C3V3OUT1 C3V3OUT2,2,C3V3OUT1 C3V3OUT2,CAP CER 22UF 25V X5R 1206,1206,Control: 3.3V buck output capacitors; Replacement for GRT31CR61E226ME01L: 旧品はDigi-Keyステータスが新規設計向けに不適合。22uF、25V、X5R、1206を維持し、許容差はより厳しく、アクティブかつ在庫あり。
+490-3285-1-ND,Murata Electronics,GRM188R72A104KA35D,CBOOT1 C3V3HF1 CDEC1-CDEC8,10,CBOOT1 C3V3HF1 CDEC1-CDEC8,"Ceramic capacitor, 0.1uF, 100V, X7R, 0603",0603,"Control: bootstrap, input HF, and IC decoupling"
+490-GCM1885C1H180FA16DCT-ND,Murata Electronics,GCM1885C1H180FA16D,CY1 CY2,2,CY1 CY2,CAP CER 18PF 50V C0G/NP0 0603,0603,Control: HSE crystal load capacitors; Replacement for GRM1885C1H180JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。18pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
+490-3542-1-ND,Murata Electronics,GRM31CR72E104KW03L,CVPRE1,1,CVPRE1,"Ceramic capacitor, 0.1uF, 250V, X7R, 1206",1206,Control: cathode pre-bias smoothing
+P10.0KHCT-ND,Panasonic Industry,ERJ-3EKF1002V,RALB1-RALB6 RCOLB1-RCOLB4 RNRST1 RSRCLR1,12,RALB1-RALB6 RCOLB1-RCOLB4 RNRST1 RSRCLR1,"Chip resistor, 10k Ohm, 1%, 0603",0603,"Control: base resistors, reset and clear pull-ups"
+P220KCCT-ND,Panasonic Industry,ERJ-6ENF2203V,RAHDRV1A-RAHDRV6B,12,RAHDRV1A-RAHDRV6B,"Chip resistor, 220k Ohm, 1%, 0805",0805,"Control: anode PNP base current limit, two in series per digit"
+10-ERJ-P08F2201VCT-ND,Panasonic Industry,ERJ-P08F2201V,RA1-RA6,6,RA1-RA6,"Pulse-withstanding resistor, 2.2k Ohm, 1%, 0.667W, 1206",1206,Control: IN-12 anode current limit
+10-ERJ-P08F1803VCT-ND,Panasonic Industry,ERJ-P08F1803V,RINS1-RINS4,4,RINS1-RINS4,"Pulse-withstanding resistor, 180k Ohm, 1%, 0.667W, 1206",1206,Control: INS-1 current limit
+P150KCCT-ND,Panasonic Industry,ERJ-6ENF1503V,RPREH1,1,RPREH1,"Chip resistor, 150k Ohm, 1%, 0805",0805,Control: VPRE upper divider
+P180KCCT-ND,Panasonic Industry,ERJ-6ENF1803V,RPREL1,1,RPREL1,"Chip resistor, 180k Ohm, 1%, 0805",0805,Control: VPRE lower divider
+P120HCT-ND,Panasonic Industry,ERJ-3EKF1200V,RT1,1,RT1,"Chip resistor, 120 Ohm, 1%, 0603",0603,Control: CAN termination resistor
