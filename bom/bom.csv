@@ -45,3 +45,4 @@ e4aef89a3602,RAHDRV1A-RAHDRV6B,12,P220KCCT-ND,Panasonic Industry,ERJ-6ENF2203V,,
 ad7525aead93,RINS1-RINS4,4,10-ERJ-P08F1803VCT-ND,Panasonic Industry,ERJ-P08F1803V,,1206,"Pulse-withstanding resistor, 180k Ohm, 1%, 0.667W, 1206",Control,,Control: INS-1 current limit
 a4fcc43babc2,RPREH1 RPREL1,2,P180KCCT-ND,Panasonic Industry,ERJ-6ENF1803V,,0805,"Chip resistor, 180k Ohm, 1%, 0805",Control,,"Control: VPRE divider, 180k/180k"
 bb337a1279b5,RT1,1,P120HCT-ND,Panasonic Industry,ERJ-3EKF1200V,,0603,"Chip resistor, 120 Ohm, 1%, 0603",Control,,Control: CAN termination resistor
+493e165ce731,XIN1P1-XIN6P12,72,54-9353-1-15-80-18-27-10-0-ND,Mill-Max Manufacturing Corp.,9353-1-15-80-18-27-10-0,,"TH pin receptacle, 1.85mm mounting hole","Pin receptacle, accepts 0.037-0.043in (0.94-1.09mm), solder, no tail",Display,,"Display: IN-12 tube sockets, 12 receptacles per tube x 6 tubes. Accepts 1mm-class IN-12 pins; active, normally stocked, in-stock, RoHS."
