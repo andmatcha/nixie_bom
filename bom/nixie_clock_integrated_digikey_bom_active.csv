@@ -14,7 +14,7 @@ Digi-Key Part Number,Manufacturer,Manufacturer Part Number,Customer Reference,Qu
 490-GCM1885C1H470GA16JCT-ND,Murata Electronics,GCM1885C1H470GA16J,CHF1,1,CHF1,CAP CER 47PF 50V C0G/NP0 0603,0603,Power: high-frequency compensation capacitor; Replacement for GCM1885C1H470JA16D: 旧品はDigi-Keyステータスが新規設計向けに不適合。47pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
 10-ERJ-8BSFR15VCT-ND,Panasonic Industry,ERJ-8BSFR15V,RSNS1,1,RSNS1,"Current sense resistor, 0.15 Ohm, 1%, 0.5W, 1206",1206,Power: MOSFET source sense resistor
 P1.0KGCT-ND,Panasonic Industry,ERJ-3GEYJ102V,RIFLT1 REN1,2,RIFLT1 REN1,RES SMD 1K OHM 5% 1/10W 0603,0603,Power: ISNS filter and DIS/EN series resistor; Panasonic resistor selected per project rule. ERJ-3EKF1001V 1% is active but Digi-Key stock is 0.
-P1.00MCCT-ND,Panasonic Industry,ERJ-6ENF1004V,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,17,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,"Chip resistor, 1M Ohm, 1%, 0805",0805,"Power/control: oscillator, anode off hold, cathode pre-bias"
+P1.00MCCT-ND,Panasonic Industry,ERJ-6ENF1004V,RRC1 RKP1-RKP10,11,RRC1 RKP1-RKP10,"Chip resistor, 1M Ohm, 1%, 0805",0805,"Power/control: oscillator and cathode pre-bias"
 P10.2HCT-ND,Panasonic Industry,ERJ-3EKF10R2V,RG1,1,RG1,"Chip resistor, 10.2 Ohm, 1%, 0603",0603,Power: MOSFET gate resistor
 P20.0KCCT-ND,Panasonic Industry,ERJ-6ENF2002V,RFB1 RFB2 RFB3 RFB4 RFB5,5,RFB1 RFB2 RFB3 RFB4 RFB5,"Chip resistor, 20k Ohm, 1%, 0805",0805,"Power: FB upper divider, five in series"
 P412CCT-ND,Panasonic Industry,ERJ-6ENF4120V,RFB6,1,RFB6,"Chip resistor, 412 Ohm, 1%, 0805",0805,Power: FB lower divider
@@ -39,9 +39,9 @@ SAM8796-ND,Samtec Inc.,FTSH-105-01-F-DV-K,JSWD1,1,JSWD1,"Header, 10 position, 1.
 490-GCM1885C1H180FA16DCT-ND,Murata Electronics,GCM1885C1H180FA16D,CY1 CY2,2,CY1 CY2,CAP CER 18PF 50V C0G/NP0 0603,0603,Control: HSE crystal load capacitors; Replacement for GRM1885C1H180JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。18pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
 490-3542-1-ND,Murata Electronics,GRM31CR72E104KW03L,CVPRE1,1,CVPRE1,"Ceramic capacitor, 0.1uF, 250V, X7R, 1206",1206,Control: cathode pre-bias smoothing
 P10.0KHCT-ND,Panasonic Industry,ERJ-3EKF1002V,RALB1-RALB6 RCOLB1-RCOLB4 RNRST1 RSRCLR1,12,RALB1-RALB6 RCOLB1-RCOLB4 RNRST1 RSRCLR1,"Chip resistor, 10k Ohm, 1%, 0603",0603,"Control: base resistors, reset and clear pull-ups"
+P499KCCT-ND,Panasonic Industry,ERJ-6ENF4993V,RAHOFF1A-RAHOFF6B,12,RAHOFF1A-RAHOFF6B,"Chip resistor, 499k Ohm, 1%, 0805",0805,"Control: anode PNP off hold, two in series per digit"
 P220KCCT-ND,Panasonic Industry,ERJ-6ENF2203V,RAHDRV1A-RAHDRV6B,12,RAHDRV1A-RAHDRV6B,"Chip resistor, 220k Ohm, 1%, 0805",0805,"Control: anode PNP base current limit, two in series per digit"
 10-ERJ-P08F2201VCT-ND,Panasonic Industry,ERJ-P08F2201V,RA1-RA6,6,RA1-RA6,"Pulse-withstanding resistor, 2.2k Ohm, 1%, 0.667W, 1206",1206,Control: IN-12 anode current limit
 10-ERJ-P08F1803VCT-ND,Panasonic Industry,ERJ-P08F1803V,RINS1-RINS4,4,RINS1-RINS4,"Pulse-withstanding resistor, 180k Ohm, 1%, 0.667W, 1206",1206,Control: INS-1 current limit
-P150KCCT-ND,Panasonic Industry,ERJ-6ENF1503V,RPREH1,1,RPREH1,"Chip resistor, 150k Ohm, 1%, 0805",0805,Control: VPRE upper divider
-P180KCCT-ND,Panasonic Industry,ERJ-6ENF1803V,RPREL1,1,RPREL1,"Chip resistor, 180k Ohm, 1%, 0805",0805,Control: VPRE lower divider
+P180KCCT-ND,Panasonic Industry,ERJ-6ENF1803V,RPREH1 RPREL1,2,RPREH1 RPREL1,"Chip resistor, 180k Ohm, 1%, 0805",0805,"Control: VPRE divider, 180k/180k"
 P120HCT-ND,Panasonic Industry,ERJ-3EKF1200V,RT1,1,RT1,"Chip resistor, 120 Ohm, 1%, 0603",0603,Control: CAN termination resistor

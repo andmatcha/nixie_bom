@@ -9,7 +9,7 @@
 | 要確認 | 0 |
 | 判定 | OK |
 
-確認日時: 2026-06-22 20:45:28 JST  
+確認日時: 2026-06-22 21:01:42 JST
 出力 CSV: `bom/nixie_clock_active_digikey_availability.csv`
 
 ## 要確認明細
