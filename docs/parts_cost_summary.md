@@ -6,25 +6,25 @@ Digi-Key Product Information V4 API を使用し、`bom/nixie_clock_integrated_d
 
 | 項目 | 値 |
 | --- | ---: |
-| 対象明細数 | 44 |
-| 取得成功 | 44 |
+| 対象明細数 | 46 |
+| 取得成功 | 46 |
 | 取得失敗 | 0 |
-| 合計部品代 | 8,254.30 JPY |
+| 合計部品代 | 8,960.30 JPY |
 
-価格取得日時: 2026-06-22 17:53:08 JST  
+価格取得日時: 2026-06-22 20:45:23 JST  
 出力 CSV: `bom/nixie_clock_active_digikey_price_list.csv`
 
 ## 区分別小計
 
 | 区分 | 小計 JPY |
 | --- | ---: |
-| Control | 5,516.40 |
-| Power | 2,469.00 |
+| Control | 5,670.40 |
+| Power | 3,021.00 |
 | Power/control | 268.90 |
 
 ## ステータス内訳
 
-- アクティブ: 44 明細
+- アクティブ: 46 明細
 
 ## 注意事項
 

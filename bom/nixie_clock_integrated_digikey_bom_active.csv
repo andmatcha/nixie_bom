@@ -1,17 +1,19 @@
 Digi-Key Part Number,Manufacturer,Manufacturer Part Number,Customer Reference,Quantity,Reference Designator,Description,Package,Notes
 296-26969-1-ND,Texas Instruments,TPS40210DGQR,U1,1,U1,"Boost controller, TPS40210, 10-HVSSOP",10-HVSSOP,Power: 12V to 170V boost controller
+18-0437.750KRACT-ND,Littelfuse Inc.,0437.750KRA,FHV1,1,FHV1,"Fast-acting board mount fuse, 750mA, 63VAC/VDC, 1206",1206,Power: 12V input fuse for HV boost branch short-circuit protection
 732-1702-1-ND,Wurth Elektronik,7447709102,L1,1,L1,"Fixed inductor, 1mH, 900mA, shielded",SMD,Power: boost inductor
 497-13937-1-ND,STMicroelectronics,STD10N60M2,Q1,1,Q1,"N-channel MOSFET, 600V, 7.5A, DPAK",DPAK,Power: boost switch
-MURS160-FDICT-ND,Diodes Incorporated,MURS160-13-F,D1,1,D1,"Fast recovery diode, 600V, 1A, SMB",SMB,Power: boost rectifier
+497-3776-1-ND,STMicroelectronics,STTH2R06U,D1,1,D1,"Fast recovery diode, 600V, 2A, 50ns, SMB",SMB,Power: boost rectifier; safety-side replacement for MURS160-13-F
 490-14678-1-ND,Murata Electronics,GRM31CR71E106KA12K,CIN1 CIN2,2,CIN1 CIN2,"Ceramic capacitor, 10uF, 25V, X7R, 1206",1206,Power: input capacitors
+490-5313-1-ND,Murata Electronics,GRM32ER71E226KE15L,CINB1 CINB2,2,CINB1 CINB2,"Ceramic capacitor, 22uF, 25V, X7R, 1210",1210,Power: 12V input bulk capacitors
 490-3550-1-ND,Murata Electronics,GRM55DR72E105KW01L,COUT1 COUT2 COUT3,3,COUT1 COUT2 COUT3,"Ceramic capacitor, 1uF, 250V, X7R, 2220",2220,Power: output capacitors
-490-10673-1-ND,Murata Electronics,GCM188R71E105KA64D,CVDD1 CBP1,2,CVDD1 CBP1,"Ceramic capacitor, 1uF, 25V, X7R, 0603",0603,Power: VDD and BP bypass
-490-3290-1-ND,Murata Electronics,GRM188R71E224KA88D,CSS1,1,CSS1,"Ceramic capacitor, 0.22uF, 25V, X7R, 0603",0603,Power: soft-start capacitor
-490-4767-1-ND,Murata Electronics,GCM1885C1H101JA16D,CRC1 CIFLT1,2,CRC1 CIFLT1,CAP CER 100PF 50V C0G/NP0 0603,0603,Power: oscillator and ISNS filter; Replacement for GRM1885C1H101JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。100pF、50V、C0G/NP0、0603を維持し、アクティブかつ在庫あり。
+490-10673-1-ND,Murata Electronics,GCM188R71E105KA64D,CVDD1 CBP1 CSS1,3,CVDD1 CBP1 CSS1,"Ceramic capacitor, 1uF, 25V, X7R, 0603",0603,Power: VDD/BP bypass and soft-start capacitor
+490-4767-1-ND,Murata Electronics,GCM1885C1H101JA16D,CRC1,1,CRC1,CAP CER 100PF 50V C0G/NP0 0603,0603,Power: oscillator capacitor; Replacement for GRM1885C1H101JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。100pF、50V、C0G/NP0、0603を維持し、アクティブかつ在庫あり。
+490-4965-1-ND,Murata Electronics,GCM1885C1H471JA16D,CIFLT1,1,CIFLT1,CAP CER 470PF 50V C0G/NP0 0603,0603,Power: ISNS filter capacitor
 490-1459-1-ND,Murata Electronics,GRM1885C1H222JA01D,CCOMP1,1,CCOMP1,"Ceramic capacitor, 2200pF, 50V, C0G/NP0, 0603",0603,Power: compensation capacitor
 490-GCM1885C1H470GA16JCT-ND,Murata Electronics,GCM1885C1H470GA16J,CHF1,1,CHF1,CAP CER 47PF 50V C0G/NP0 0603,0603,Power: high-frequency compensation capacitor; Replacement for GCM1885C1H470JA16D: 旧品はDigi-Keyステータスが新規設計向けに不適合。47pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
-P17678CT-ND,Panasonic Industry,ERJ-8BSFR10V,RSNS1,1,RSNS1,"Current sense resistor, 0.1 Ohm, 1%, 0.5W, 1206",1206,Power: MOSFET source sense resistor
-541-1.00KHCT-ND,Vishay Dale,CRCW06031K00FKEA,RIFLT1 REN1,2,RIFLT1 REN1,RES SMD 1K OHM 1% 1/8W 0603,0603,Power: ISNS filter and DIS/EN series resistor; Replacement for ERJ-3EKF1001V: 旧品はDigi-Key在庫0。1kOhm、1%、0603、厚膜抵抗を維持し、電力定格は同等以上、アクティブかつ在庫あり。
+10-ERJ-8BSFR15VCT-ND,Panasonic Industry,ERJ-8BSFR15V,RSNS1,1,RSNS1,"Current sense resistor, 0.15 Ohm, 1%, 0.5W, 1206",1206,Power: MOSFET source sense resistor
+P1.0KGCT-ND,Panasonic Industry,ERJ-3GEYJ102V,RIFLT1 REN1,2,RIFLT1 REN1,RES SMD 1K OHM 5% 1/10W 0603,0603,Power: ISNS filter and DIS/EN series resistor; Panasonic resistor selected per project rule. ERJ-3EKF1001V 1% is active but Digi-Key stock is 0.
 P1.00MCCT-ND,Panasonic Industry,ERJ-6ENF1004V,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,17,RRC1 RAHOFF1-RAHOFF6 RKP1-RKP10,"Chip resistor, 1M Ohm, 1%, 0805",0805,"Power/control: oscillator, anode off hold, cathode pre-bias"
 P10.2HCT-ND,Panasonic Industry,ERJ-3EKF10R2V,RG1,1,RG1,"Chip resistor, 10.2 Ohm, 1%, 0603",0603,Power: MOSFET gate resistor
 P20.0KCCT-ND,Panasonic Industry,ERJ-6ENF2002V,RFB1 RFB2 RFB3 RFB4 RFB5,5,RFB1 RFB2 RFB3 RFB4 RFB5,"Chip resistor, 20k Ohm, 1%, 0805",0805,"Power: FB upper divider, five in series"
@@ -32,7 +34,7 @@ MMBTA42-FDICT-ND,Diodes Incorporated,MMBTA42-7-F,QAL1 QAL2 QAL3 QAL4 QAL5 QAL6 Q
 ED10562-ND,On Shore Technology Inc.,OSTVN03A150,JCAN1,1,JCAN1,"Terminal block, 3 position, 2.54mm",Through-Hole,Control: CANH/CANL/GND connector
 SAM8796-ND,Samtec Inc.,FTSH-105-01-F-DV-K,JSWD1,1,JSWD1,"Header, 10 position, 1.27mm, SMD",SMD,Control: SWD debug connector
 490-GRJ31CR71H475KE11KCT-ND,Murata Electronics,GRJ31CR71H475KE11K,C3V3IN1 C3V3IN2,2,C3V3IN1 C3V3IN2,CAP CER MLCC,1206,Control: 3.3V buck input capacitors; Replacement for GRM31CR71H475KA12L: 旧品はDigi-Key在庫0。4.7uF、50V、X7R、1206を維持し、アクティブかつ在庫あり。
-1276-3047-1-ND,Samsung Electro-Mechanics,CL31A226KAHNNNE,C3V3OUT1 C3V3OUT2,2,C3V3OUT1 C3V3OUT2,CAP CER 22UF 25V X5R 1206,1206,Control: 3.3V buck output capacitors; Replacement for GRT31CR61E226ME01L: 旧品はDigi-Keyステータスが新規設計向けに不適合。22uF、25V、X5R、1206を維持し、許容差はより厳しく、アクティブかつ在庫あり。
+490-14468-1-ND,Murata Electronics,GRM31CC81E226KE11L,C3V3OUT1 C3V3OUT2,2,C3V3OUT1 C3V3OUT2,CAP CER 22UF 25V X6S 1206,1206,Control: 3.3V buck output capacitors; Replacement for GRT31CR61E226ME01L: 旧品はDigi-Keyステータスが新規設計向けに不適合。22uF、25V、1206を維持し、Murataのアクティブかつ在庫あり品を採用。
 490-3285-1-ND,Murata Electronics,GRM188R72A104KA35D,CBOOT1 C3V3HF1 CDEC1-CDEC8,10,CBOOT1 C3V3HF1 CDEC1-CDEC8,"Ceramic capacitor, 0.1uF, 100V, X7R, 0603",0603,"Control: bootstrap, input HF, and IC decoupling"
 490-GCM1885C1H180FA16DCT-ND,Murata Electronics,GCM1885C1H180FA16D,CY1 CY2,2,CY1 CY2,CAP CER 18PF 50V C0G/NP0 0603,0603,Control: HSE crystal load capacitors; Replacement for GRM1885C1H180JA01D: 旧品はDigi-Keyステータスが新規設計向けに不適合。18pF、50V、C0G/NP0、0603を維持し、許容差はより厳しく、アクティブかつ在庫あり。
 490-3542-1-ND,Murata Electronics,GRM31CR72E104KW03L,CVPRE1,1,CVPRE1,"Ceramic capacitor, 0.1uF, 250V, X7R, 1206",1206,Control: cathode pre-bias smoothing
