@@ -1,0 +1,7 @@
+*.kicad_pro text eol=lf
+*.kicad_sch text eol=lf
+*.kicad_pcb text eol=lf
+*.kicad_sym text eol=lf
+*.kicad_mod text eol=lf
+sym-lib-table text eol=lf
+fp-lib-table text eol=lf

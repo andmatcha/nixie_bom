@@ -6,3 +6,11 @@ __pycache__/
 .specstory/
 .vscode/
 data/digikey/raw/
+
+# KiCad local/editor state and generated check reports.
+*.kicad_prl
+*.kicad_pro-bak
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*-backups/
+kicad/**/*.rpt
