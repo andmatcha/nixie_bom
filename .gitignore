@@ -13,4 +13,6 @@ data/digikey/raw/
 *.kicad_sch-bak
 *.kicad_pcb-bak
 *-backups/
+**/.history/
+**/~*.lck
 kicad/**/*.rpt
