@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "nixie_clock_bom") (type "KiCad") (uri "${KIPRJMOD}/nixie_clock_bom.kicad_sym") (options "") (descr "Generated Nixie clock BOM symbols"))
+)
