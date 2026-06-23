@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import os
@@ -72,6 +73,129 @@ class Decision:
     @property
     def needs_review(self) -> bool:
         return self.overall in {"review", "needs_custom", "blocked"} or self.confidence in {"low", "medium"}
+
+
+@dataclass(frozen=True)
+class SchematicBlock:
+    key: str
+    label: str
+    note: str
+    x1: float
+    y1: float
+    x2: float
+    y2: float
+    cols: int
+    x0: float
+    y0: float
+    dx: float
+    dy: float
+
+
+@dataclass
+class PlacedSymbol:
+    row: BomRow
+    decision: Decision
+    ref: str
+    x: float
+    y: float
+
+
+SCHEMATIC_BLOCKS: dict[str, SchematicBlock] = {
+    "hv_power": SchematicBlock(
+        "hv_power",
+        "電源系 / HV Boost",
+        "12V input, 170V boost controller and feedback parts",
+        15.24,
+        20.32,
+        406.40,
+        340.36,
+        7,
+        45.72,
+        68.58,
+        50.80,
+        38.10,
+    ),
+    "lv_power": SchematicBlock(
+        "lv_power",
+        "電源系 / 3.3V Buck",
+        "3.3V regulator, inductor, bulk/HF capacitors, enable bias",
+        426.72,
+        20.32,
+        706.12,
+        218.44,
+        4,
+        457.20,
+        68.58,
+        60.96,
+        43.18,
+    ),
+    "control": SchematicBlock(
+        "control",
+        "制御系 / MCU, Clock, Debug",
+        "STM32, crystal, SWD connector, reset and logic support",
+        723.90,
+        20.32,
+        1165.86,
+        279.40,
+        5,
+        762.00,
+        76.20,
+        78.74,
+        58.42,
+    ),
+    "can": SchematicBlock(
+        "can",
+        "制御系 / CAN Interface",
+        "CAN transceiver, ESD protection, connector and termination",
+        723.90,
+        294.64,
+        1165.86,
+        421.64,
+        6,
+        762.00,
+        342.90,
+        66.04,
+        43.18,
+    ),
+    "display_driver": SchematicBlock(
+        "display_driver",
+        "表示駆動系 / Nixie Drivers",
+        "Shift registers, sink drivers, anode switches, current/bias resistors",
+        15.24,
+        360.68,
+        635.00,
+        817.88,
+        11,
+        45.72,
+        408.94,
+        53.34,
+        40.64,
+    ),
+    "display_sockets": SchematicBlock(
+        "display_sockets",
+        "表示管ソケット / IN-12",
+        "Six IN-12 sockets, 12 receptacle pins per tube",
+        650.24,
+        439.42,
+        1165.86,
+        817.88,
+        12,
+        680.72,
+        500.38,
+        40.64,
+        43.18,
+    ),
+}
+
+
+SCHEMATIC_BLOCK_ORDER = [
+    "hv_power",
+    "lv_power",
+    "control",
+    "can",
+    "display_driver",
+    "display_sockets",
+]
 
 
 PIN_MAPS: dict[str, list[tuple[str, str, str, str]]] = {
@@ -594,11 +718,99 @@ def property_block(name: str, value: str, x: float, y: float, hide: bool = False
 \t\t)"""
 
 
-def symbol_instance(row: BomRow, decision: Decision, ref: str, index: int) -> str:
-    col = index % 14
-    row_no = index // 14
-    x = 25.4 + col * 76.2
-    y = 25.4 + row_no * 50.8
+def block_for_ref(row: BomRow, ref: str) -> str:
+    if ref.startswith("XIN"):
+        return "display_sockets"
+    if ref.startswith(("U3", "L2", "C3V3IN", "C3V3OUT", "C3V3HF", "CBOOT", "R3V3EN")):
+        return "lv_power"
+    if ref.startswith(("U4", "D2", "JCAN", "RT", "RCANSTB", "RCANSHDN")):
+        return "can"
+    if ref.startswith(("U2", "Y1", "CY", "CDEC", "JSWD", "RNRST", "RSRCLR", "RENPD", "ROE", "RBOOT")):
+        return "control"
+    if ref.startswith(
+        (
+            "U5",
+            "U6",
+            "U7",
+            "U8",
+            "U9",
+            "QAH",
+            "QAL",
+            "QCOL",
+            "RAH",
+            "RAL",
+            "RCOL",
+            "RA",
+            "RINS",
+            "RPRE",
+            "CVPRE",
+            "RKP",
+        )
+    ):
+        return "display_driver"
+    if ref == "REN1" or ref.startswith(
+        (
+            "U1",
+            "FHV",
+            "L1",
+            "Q1",
+            "D1",
+            "CIN",
+            "CINB",
+            "COUT",
+            "CVDD",
+            "CBP",
+            "CSS",
+            "CRC",
+            "CIFLT",
+            "CCOMP",
+            "CHF",
+            "RSNS",
+            "RIFLT",
+            "RRC",
+            "RG",
+            "RFB",
+            "RCOMP",
+            "RBLD",
+        )
+    ):
+        return "hv_power"
+    if "Display" in row.purpose:
+        return "display_driver"
+    if "Power" in row.purpose:
+        return "hv_power"
+    return "control"
+
+
+def position_for_ref(block: SchematicBlock, ref: str, index: int) -> tuple[float, float]:
+    socket_match = re.fullmatch(r"XIN(\d+)P(\d+)", ref)
+    if socket_match:
+        tube = int(socket_match.group(1))
+        pin = int(socket_match.group(2))
+        return block.x0 + (pin - 1) * block.dx, block.y0 + (tube - 1) * block.dy
+    return block.x0 + (index % block.cols) * block.dx, block.y0 + (index // block.cols) * block.dy
+
+
+def place_symbols(rows: list[BomRow], decisions: dict[str, Decision], expanded_by_line: dict[str, list[str]]) -> list[PlacedSymbol]:
+    block_counts = {key: 0 for key in SCHEMATIC_BLOCKS}
+    placed: list[PlacedSymbol] = []
+    for row in rows:
+        decision = decisions[row.line_id]
+        for ref in expanded_by_line[row.line_id]:
+            block_key = block_for_ref(row, ref)
+            block = SCHEMATIC_BLOCKS[block_key]
+            x, y = position_for_ref(block, ref, block_counts[block_key])
+            block_counts[block_key] += 1
+            placed.append(PlacedSymbol(row, decision, ref, x, y))
+    return placed
+
+
+def symbol_instance(placed: PlacedSymbol) -> str:
+    row = placed.row
+    decision = placed.decision
+    ref = placed.ref
+    x = placed.x
+    y = placed.y
     pins = "\n".join(
         f'\t\t(pin {s(str(pin))}\n\t\t\t(uuid {s(uuid_for(ref, "pin", str(pin)))})\n\t\t)'
         for pin in range(1, decision.pin_count + 1)
@@ -703,9 +915,42 @@ def collect_embedded_symbol_definitions(lib_ids: set[str]) -> list[str]:
     return definitions
 
 
-def write_schematic(instances: list[str], lib_symbol_definitions: list[str]) -> None:
+def block_rectangle(block: SchematicBlock) -> str:
+    return f"""\t(rectangle
+\t\t(start {block.x1:.2f} {block.y1:.2f})
+\t\t(end {block.x2:.2f} {block.y2:.2f})
+\t\t(stroke (width 0.254) (type dash))
+\t\t(fill (type none))
+\t\t(uuid {s(uuid_for("schematic-block", block.key, "rectangle"))})
+\t)"""
+
+
+def block_text(text: str, x: float, y: float, size: float, key: str) -> str:
+    thickness = max(0.15, size * 0.10)
+    return f"""\t(text {s(text)}
+\t\t(at {x:.2f} {y:.2f} 0)
+\t\t(effects
+\t\t\t(font (size {size:.2f} {size:.2f}) (thickness {thickness:.2f}))
+\t\t\t(justify left bottom)
+\t\t)
+\t\t(uuid {s(uuid_for("schematic-block", key, text))})
+\t)"""
+
+
+def block_graphics() -> list[str]:
+    graphics: list[str] = []
+    for key in SCHEMATIC_BLOCK_ORDER:
+        block = SCHEMATIC_BLOCKS[key]
+        graphics.append(block_rectangle(block))
+        graphics.append(block_text(block.label, block.x1 + 5.08, block.y1 + 10.16, 3.00, f"{key}-label"))
+        graphics.append(block_text(block.note, block.x1 + 5.08, block.y1 + 17.78, 1.60, f"{key}-note"))
+    return graphics
+
+
+def write_schematic(instances: list[str], lib_symbol_definitions: list[str], graphics: list[str] | None = None) -> None:
     body = "\n".join(instances)
     lib_symbols = "\n".join(lib_symbol_definitions)
+    graphic_body = "\n".join(graphics or [])
     SCH_PATH.write_text(
         f"""(kicad_sch
 \t(version 20250114)
@@ -720,6 +965,7 @@ def write_schematic(instances: list[str], lib_symbol_definitions: list[str]) -> 
 \t(lib_symbols
 {lib_symbols}
 \t)
+{graphic_body}
 {body}
 \t(sheet_instances
 \t\t(path "/"
@@ -733,7 +979,9 @@ def write_schematic(instances: list[str], lib_symbol_definitions: list[str]) -> 
     )
 
 
-def write_project() -> None:
+def write_project() -> bool:
+    if PRO_PATH.exists():
+        return False
     project = {
         "board": {
             "design_settings": {
@@ -754,6 +1002,7 @@ def write_project() -> None:
         "text_variables": {},
     }
     PRO_PATH.write_text(json.dumps(project, indent=2) + "\n", encoding="utf-8")
+    return True
 
 
 def pin_line(number: str, name: str, pin_type: str, side: str, y: float, height: float) -> str:
@@ -979,6 +1228,19 @@ def write_docs(rows: list[BomRow], decisions: dict[str, Decision], expanded_by_l
             "- `docs/pins.csv`: IC/半導体のピン表",
             "- `docs/kicad_footprint_audit.md`: 全BOM行のフットプリント根拠と取得/生成状況",
             "",
+            "## 回路図配置",
+            "",
+            "`kicad/nixie_clock/nixie_clock.kicad_sch` は下記の機能ブロック枠で整理している。",
+            "",
+            "| Block | 内容 |",
+            "| --- | --- |",
+            "| 電源系 / HV Boost | 12V入力、170V昇圧、帰還、補償、保護部品 |",
+            "| 電源系 / 3.3V Buck | 3.3V降圧、入出力容量、ENまわり |",
+            "| 制御系 / MCU, Clock, Debug | STM32、クロック、SWD、リセット、ロジック補助 |",
+            "| 制御系 / CAN Interface | CANトランシーバ、ESD保護、端子台、終端 |",
+            "| 表示駆動系 / Nixie Drivers | シフトレジスタ、シンクドライバ、アノード/カソード駆動、電流制限/バイアス |",
+            "| 表示管ソケット / IN-12 | 6本分のIN-12ソケットピン |",
+            "",
             "## 配置数チェック",
             "",
             f"- BOM行数: {len(rows)}",
@@ -1082,14 +1344,20 @@ def assess_with_dktools(row: BomRow, decision: Decision) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Generate the placement-only KiCad BOM project.")
+    parser.add_argument(
+        "--skip-assess",
+        action="store_true",
+        help="Do not rewrite dktools EDA assessment rows; useful for schematic-only layout refreshes.",
+    )
+    args = parser.parse_args()
+
     rows = load_rows()
     KICAD_PROJECT.mkdir(parents=True, exist_ok=True)
     (ROOT / "docs").mkdir(exist_ok=True)
 
     decisions: dict[str, Decision] = {}
     expanded_by_line: dict[str, list[str]] = {}
-    instances: list[str] = []
-    symbol_index = 0
 
     for row in rows:
         decision = decision_for(row)
@@ -1098,21 +1366,25 @@ def main() -> None:
         refs = expand_refs(row.refs, row.quantity)
         decisions[row.line_id] = decision
         expanded_by_line[row.line_id] = refs
-        for ref in refs:
-            instances.append(symbol_instance(row, decision, ref, symbol_index))
-            symbol_index += 1
 
-    write_project()
+    placed_symbols = place_symbols(rows, decisions, expanded_by_line)
+    instances = [symbol_instance(placed) for placed in placed_symbols]
+
+    wrote_project = write_project()
     write_custom_libraries()
-    write_schematic(instances, collect_embedded_symbol_definitions({d.symbol for d in decisions.values()}))
+    write_schematic(instances, collect_embedded_symbol_definitions({d.symbol for d in decisions.values()}), block_graphics())
     write_pin_map(rows)
     write_docs(rows, decisions, expanded_by_line)
 
-    for row in rows:
-        assess_with_dktools(row, decisions[row.line_id])
+    if not args.skip_assess:
+        for row in rows:
+            assess_with_dktools(row, decisions[row.line_id])
 
-    print(f"Wrote {PRO_PATH.relative_to(ROOT)}")
-    print(f"Wrote {SCH_PATH.relative_to(ROOT)} with {symbol_index} placed symbols")
+    if wrote_project:
+        print(f"Wrote {PRO_PATH.relative_to(ROOT)}")
+    else:
+        print(f"Preserved existing {PRO_PATH.relative_to(ROOT)}")
+    print(f"Wrote {SCH_PATH.relative_to(ROOT)} with {len(placed_symbols)} placed symbols")
     print(f"Wrote {DECISION_DOC.relative_to(ROOT)}")
     print(f"Wrote {GAP_DOC.relative_to(ROOT)}")
     print(f"Wrote {FOOTPRINT_AUDIT_DOC.relative_to(ROOT)}")

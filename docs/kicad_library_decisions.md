@@ -62,6 +62,19 @@
 - `docs/pins.csv`: IC/半導体のピン表
 - `docs/kicad_footprint_audit.md`: 全BOM行のフットプリント根拠と取得/生成状況
 
+## 回路図配置
+
+`kicad/nixie_clock/nixie_clock.kicad_sch` は下記の機能ブロック枠で整理している。
+
+| Block | 内容 |
+| --- | --- |
+| 電源系 / HV Boost | 12V入力、170V昇圧、帰還、補償、保護部品 |
+| 電源系 / 3.3V Buck | 3.3V降圧、入出力容量、ENまわり |
+| 制御系 / MCU, Clock, Debug | STM32、クロック、SWD、リセット、ロジック補助 |
+| 制御系 / CAN Interface | CANトランシーバ、ESD保護、端子台、終端 |
+| 表示駆動系 / Nixie Drivers | シフトレジスタ、シンクドライバ、アノード/カソード駆動、電流制限/バイアス |
+| 表示管ソケット / IN-12 | 6本分のIN-12ソケットピン |
+
 ## 配置数チェック
 
 - BOM行数: 47
