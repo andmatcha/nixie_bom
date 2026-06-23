@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -25,6 +26,13 @@ GAP_DOC = ROOT / "docs/kicad_library_gaps.md"
 
 ROOT_UUID = "f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5"
 UUID_NS = uuid.UUID("f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5")
+KICAD_SYMBOL_DIR_CANDIDATES = [
+    Path(os.environ["KICAD10_SYMBOL_DIR"]) if os.environ.get("KICAD10_SYMBOL_DIR") else None,
+    Path(os.environ["KICAD9_SYMBOL_DIR"]) if os.environ.get("KICAD9_SYMBOL_DIR") else None,
+    Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols"),
+    Path("/usr/share/kicad/symbols"),
+    Path("/usr/local/share/kicad/symbols"),
+]
 
 
 @dataclass
@@ -219,7 +227,7 @@ EXPLICIT: dict[str, Decision] = {
         "Confirm TO-252 pin order and tab mapping before PCB layout.",
     ),
     "STTH2R06U": Decision(
-        "Device:D_Fast",
+        "Device:D",
         "Diode_SMD:D_SMB",
         "STTH2R06U",
         2,
@@ -234,7 +242,7 @@ EXPLICIT: dict[str, Decision] = {
         "Fast recovery diode in SMB; KiCad generic fast diode symbol and SMB footprint selected.",
     ),
     "STM32G0B1CBT6": Decision(
-        "MCU_ST_STM32G0:STM32G0B1CBTx",
+        "MCU_ST_STM32G0:STM32G0B1C_B-C-E_Tx",
         "Package_QFP:LQFP-48_7x7mm_P0.5mm",
         "STM32G0B1CBT6",
         48,
@@ -246,10 +254,10 @@ EXPLICIT: dict[str, Decision] = {
         "standard_package_preferred",
         "specific_pin_identity_required",
         "imported",
-        "KiCad 10 standard STM32G0B1CBTx symbol and LQFP-48 footprint selected.",
+        "KiCad 10 STM32G0B1C_B-C-E_Tx base symbol matches the STM32G0B1CBTx LQFP-48 pinout and avoids embedded alias rendering issues.",
     ),
     "AP63203QWU-7": Decision(
-        "Regulator_Switching:AP63203WU",
+        "Regulator_Switching:AP63200WU",
         "Package_TO_SOT_SMD:TSOT-23-6",
         "AP63203QWU-7",
         6,
@@ -261,10 +269,10 @@ EXPLICIT: dict[str, Decision] = {
         "standard_package_preferred",
         "pin_map_provided",
         "imported",
-        "KiCad AP63203WU symbol matches the AP63203QWU-7 TSOT-23-6 pinout for schematic placement.",
+        "KiCad 10 AP63200WU base symbol matches the AP63203QWU-7 TSOT-23-6 pinout and avoids embedded alias rendering issues.",
     ),
     "TCAN334GDR": Decision(
-        "Interface_CAN_LIN:TCAN334G",
+        "Interface_CAN_LIN:TCAN334",
         "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
         "TCAN334GDR",
         8,
@@ -276,7 +284,7 @@ EXPLICIT: dict[str, Decision] = {
         "standard_package_preferred",
         "pin_map_provided",
         "imported",
-        "KiCad 10 standard TCAN334G symbol and SOIC-8 footprint selected.",
+        "KiCad 10 TCAN334 base symbol matches the TCAN334GDR SOIC-8 pinout and avoids embedded alias rendering issues.",
     ),
     "SN74HC595DR": Decision(
         "74xx:74HC595",
@@ -309,7 +317,7 @@ EXPLICIT: dict[str, Decision] = {
         "KiCad 10 standard SN75468 symbol and SOIC-16 footprint selected.",
     ),
     "MMBTA92-7-F": Decision(
-        "Transistor_BJT:MMBTA92",
+        "Transistor_BJT:Q_PNP_BEC",
         "Package_TO_SOT_SMD:SOT-23",
         "MMBTA92-7-F",
         3,
@@ -321,10 +329,10 @@ EXPLICIT: dict[str, Decision] = {
         "standard_package_preferred",
         "specific_pin_identity_required",
         "imported",
-        "KiCad 10 standard MMBTA92 symbol and SOT-23 footprint selected.",
+        "KiCad 10 Q_PNP_BEC base symbol matches the MMBTA92 BEC pin order and avoids embedded alias rendering issues.",
     ),
     "MMBTA42-7-F": Decision(
-        "Transistor_BJT:MMBTA42",
+        "Transistor_BJT:Q_NPN_BEC",
         "Package_TO_SOT_SMD:SOT-23",
         "MMBTA42-7-F",
         3,
@@ -336,7 +344,7 @@ EXPLICIT: dict[str, Decision] = {
         "standard_package_preferred",
         "specific_pin_identity_required",
         "imported",
-        "KiCad 10 standard MMBTA42 symbol and SOT-23 footprint selected.",
+        "KiCad 10 Q_NPN_BEC base symbol matches the MMBTA42 BEC pin order and avoids embedded alias rendering issues.",
     ),
     "ESD2CAN24DBZRQ1": Decision(
         "nixie_clock_bom:ESD2CAN24DBZRQ1",
@@ -573,6 +581,13 @@ def s(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def kicad_symbol_dir() -> Path:
+    for candidate in KICAD_SYMBOL_DIR_CANDIDATES:
+        if candidate and candidate.is_dir():
+            return candidate
+    raise FileNotFoundError("KiCad standard symbol directory was not found.")
+
+
 def uuid_for(*parts: str) -> str:
     return str(uuid.uuid5(UUID_NS, ":".join(parts)))
 
@@ -625,8 +640,78 @@ def symbol_instance(row: BomRow, decision: Decision, ref: str, index: int) -> st
 \t)"""
 
 
-def write_schematic(instances: list[str]) -> None:
+def balanced_sexp(text: str, start: int) -> str:
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                return text[start : index + 1]
+    raise ValueError("Unbalanced KiCad S-expression.")
+
+
+def extract_symbol_definition(symbol_file: Path, symbol_name: str) -> str:
+    text = symbol_file.read_text(encoding="utf-8")
+    pattern = re.compile(rf"(?m)^\t\(symbol\s+{re.escape(s(symbol_name))}(\s|\n)")
+    match = pattern.search(text)
+    if not match:
+        raise ValueError(f"{symbol_name} was not found in {symbol_file}")
+    return balanced_sexp(text, match.start())
+
+
+def embedded_symbol_definition(lib_id: str) -> tuple[str, list[str]]:
+    library_name, symbol_name = lib_id.split(":", 1)
+    if library_name == "nixie_clock_bom":
+        symbol_file = CUSTOM_SYM_PATH
+    else:
+        symbol_file = kicad_symbol_dir() / f"{library_name}.kicad_sym"
+    definition = extract_symbol_definition(symbol_file, symbol_name)
+    bases = re.findall(r'\(extends\s+"([^":]+)"\)', definition)
+    definition = re.sub(
+        r'^(\t\(symbol\s+)"[^"]+"',
+        lambda match: f"{match.group(1)}{s(lib_id)}",
+        definition,
+        count=1,
+    )
+    return definition, [f"{library_name}:{base}" for base in bases]
+
+
+def collect_embedded_symbol_definitions(lib_ids: set[str]) -> list[str]:
+    definitions: list[str] = []
+    seen: set[str] = set()
+
+    def add(lib_id: str) -> None:
+        if lib_id in seen:
+            return
+        definition, base_ids = embedded_symbol_definition(lib_id)
+        for base_id in base_ids:
+            add(base_id)
+        seen.add(lib_id)
+        definitions.append(definition)
+
+    for lib_id in sorted(lib_ids):
+        add(lib_id)
+    return definitions
+
+
+def write_schematic(instances: list[str], lib_symbol_definitions: list[str]) -> None:
     body = "\n".join(instances)
+    lib_symbols = "\n".join(lib_symbol_definitions)
     SCH_PATH.write_text(
         f"""(kicad_sch
 \t(version 20250114)
@@ -638,7 +723,9 @@ def write_schematic(instances: list[str]) -> None:
 \t\t(title "Nixie Clock BOM Placement")
 \t\t(comment 1 "Generated from data/digikey/parts.sqlite3; wiring intentionally omitted.")
 \t)
-\t(lib_symbols)
+\t(lib_symbols
+{lib_symbols}
+\t)
 {body}
 \t(sheet_instances
 \t\t(path "/"
@@ -914,7 +1001,7 @@ def main() -> None:
 
     write_project()
     write_custom_libraries()
-    write_schematic(instances)
+    write_schematic(instances, collect_embedded_symbol_definitions({d.symbol for d in decisions.values()}))
     write_pin_map(rows)
     write_docs(rows, decisions, expanded_by_line)
 
