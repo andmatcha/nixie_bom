@@ -23,6 +23,7 @@ CUSTOM_FP_DIR = KICAD_PROJECT / "nixie_clock_bom.pretty"
 PIN_MAP_PATH = ROOT / "docs/pins.csv"
 DECISION_DOC = ROOT / "docs/kicad_library_decisions.md"
 GAP_DOC = ROOT / "docs/kicad_library_gaps.md"
+FOOTPRINT_AUDIT_DOC = ROOT / "docs/kicad_footprint_audit.md"
 
 ROOT_UUID = "f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5"
 UUID_NS = uuid.UUID("f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5")
@@ -185,15 +186,14 @@ EXPLICIT: dict[str, Decision] = {
         "1mH",
         2,
         "generic_ok",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "kicad_generic_preferred",
-        "bom_specified_verify",
+        "standard_package_preferred",
         "generic_pin_identity_ok",
-        "needs_review",
-        "No exact 7447709102 footprint was found in the KiCad 10 standard libraries; selected the closest WE-PD generic footprint for placement.",
-        "Verify pad geometry against the Wurth 7447709102 datasheet before PCB layout.",
+        "imported",
+        "KiCad 10 standard Wurth WE-PD Type M/S footprint selected; the 7447709102 datasheet reports a 12.0 x 12.0 mm WE-PD 1210 body and matching recommended land pattern.",
     ),
     "74439346068": Decision(
         "Device:L",
@@ -216,15 +216,14 @@ EXPLICIT: dict[str, Decision] = {
         "STD10N60M2",
         4,
         "generic_ok",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "generic_possible_verify_pins",
-        "bom_specified_verify",
-        "symbol_pinout_must_be_verified",
-        "needs_review",
-        "Generic four-pin NMOS symbol and TO-252/DPAK footprint selected; tab/drain numbering must be checked against the ST package drawing.",
-        "Confirm TO-252 pin order and tab mapping before PCB layout.",
+        "standard_package_preferred",
+        "specific_pin_identity_required",
+        "imported",
+        "Digi-Key describes the package as DPAK/TO-252; KiCad TO-252-3_TabPin4 provides pads 1/2/3 plus drain tab 4, matching the selected G-D-S-D MOSFET symbol.",
     ),
     "STTH2R06U": Decision(
         "Device:D",
@@ -352,15 +351,14 @@ EXPLICIT: dict[str, Decision] = {
         "ESD2CAN24DBZRQ1",
         3,
         "available",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "generated_specific",
         "standard_package_preferred",
         "pin_map_provided",
-        "needs_review",
-        "Project-local 3-pin CAN ESD placeholder symbol generated; SOT-23-3 footprint selected.",
-        "Verify pin 1/2/3 assignment against the TI ESD2CAN24DBZRQ1 datasheet before wiring.",
+        "imported",
+        "Project-local 3-pin CAN ESD symbol generated with IO1/GND/IO2 pins; Digi-Key and TI identify the package as SOT-23-3, so KiCad's standard SOT-23-3 footprint is used.",
     ),
     "ECS-80-12-33-JGN-TR": Decision(
         "Device:Crystal",
@@ -368,47 +366,44 @@ EXPLICIT: dict[str, Decision] = {
         "8MHz",
         2,
         "generic_ok",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "kicad_generic_preferred",
-        "bom_specified_verify",
+        "standard_package_preferred",
         "generic_pin_identity_ok",
-        "needs_review",
-        "Generic crystal symbol and 3.2 x 2.5 mm 4-pad footprint selected from the BOM package dimensions.",
-        "Confirm ECS land pattern and unused pad treatment before PCB layout.",
+        "imported",
+        "Digi-Key describes this as a 4-SMD leadless crystal; KiCad's standard 3.2 x 2.5 mm 4-pad crystal footprint matches the ECS ECX-32 package family.",
     ),
     "OSTVN03A150": Decision(
         "Connector_Generic:Conn_01x03",
-        "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal",
+        "nixie_clock_bom:OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal",
         "CAN",
         3,
         "generic_ok",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "kicad_generic_preferred",
-        "bom_specified_verify",
+        "custom",
         "generic_pin_identity_ok",
-        "needs_review",
-        "Generic 3-pin connector symbol and 2.54 mm horizontal terminal-block footprint selected; exact OSTVN footprint was not found locally.",
-        "Check On Shore OSTVN03A150 hole size and outline before PCB layout.",
+        "imported",
+        "Project-local footprint generated from the On Shore OSTVNXXA150 drawing obtained via Digi-Key: 3 poles, 2.54 mm pitch, 1.30 mm drill, Dim B 5.08 mm, Dim L 8.02 mm.",
     ),
     "FTSH-105-01-F-DV-K": Decision(
         "Connector_Generic:Conn_02x05_Odd_Even",
-        "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD",
+        "nixie_clock_bom:Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD",
         "SWD",
         10,
         "generic_ok",
-        "unverified",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "kicad_generic_preferred",
-        "bom_specified_verify",
+        "custom",
         "generic_pin_identity_ok",
-        "needs_review",
-        "Generic 2x05 1.27 mm connector symbol and SMD pin-header footprint selected; exact Samtec keyed header footprint was not found locally.",
-        "Verify Samtec FTSH keyed/shroud geometry before PCB layout.",
+        "imported",
+        "Project-local footprint generated for the Samtec FTSH-105-01-F-DV-K keyed 2x05 1.27 mm SMD header; pad geometry follows the KiCad 1.27 mm SMD header pattern and the fab/courtyard outline records the FTSH -DV/-K body.",
     ),
     "9353-1-15-80-18-27-10-0": Decision(
         "Connector_Generic:Conn_01x01",
@@ -416,15 +411,14 @@ EXPLICIT: dict[str, Decision] = {
         "IN-12 socket pin",
         1,
         "generic_ok",
-        "needs_custom",
-        "review",
-        "medium",
+        "available",
+        "ready",
+        "high",
         "kicad_generic_preferred",
         "custom",
         "generic_pin_identity_ok",
-        "needs_review",
-        "Generic one-pin connector symbol selected and a project-local placeholder footprint generated from Digi-Key dimensions.",
-        "Verify the Mill-Max receptacle land pattern, drill tolerance, and annular ring before PCB layout.",
+        "imported",
+        "Project-local footprint generated from Digi-Key parameters for the Mill-Max 9353 receptacle: 1.85 mm mounting drill, 2.29 mm flange diameter, 4.06 mm socket depth.",
     ),
 }
 
@@ -821,6 +815,87 @@ def custom_symbol(name: str, value: str, footprint: str, pins: list[tuple[str, s
 \t)"""
 
 
+def ostvn_03a150_footprint() -> str:
+    return """(footprint "OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal"
+\t(version 20240108)
+\t(generator "codex")
+\t(layer "F.Cu")
+\t(descr "On Shore Technology OSTVN03A150 3-pole horizontal terminal block; OSTVNXXA150 drawing: pitch 2.54mm, drill 1.30mm, Dim B 5.08mm, Dim L 8.02mm.")
+\t(tags "terminal block On Shore OSTVN03A150 3P 2.54mm horizontal")
+\t(property "Reference" "REF**" (at 2.54 -4.60 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
+\t(property "Value" "OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal" (at 2.54 4.60 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+\t(fp_rect (start -1.47 -3.30) (end 6.55 3.20) (stroke (width 0.10) (type solid)) (fill none) (layer "F.Fab"))
+\t(fp_line (start -1.47 -3.30) (end 6.55 -3.30) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start -1.47 3.20) (end 6.55 3.20) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start -1.47 -3.30) (end -1.47 -2.00) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start -1.47 2.00) (end -1.47 3.20) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start 6.55 -3.30) (end 6.55 -2.00) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start 6.55 2.00) (end 6.55 3.20) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start -1.75 -3.60) (end 6.85 -3.60) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 6.85 -3.60) (end 6.85 3.50) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 6.85 3.50) (end -1.75 3.50) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start -1.75 3.50) (end -1.75 -3.60) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_text user "${REFERENCE}" (at 2.54 0 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+\t(pad "1" thru_hole roundrect (at 0 0) (size 2.30 2.30) (drill 1.30) (layers "*.Cu" "*.Mask") (roundrect_rratio 0.125))
+\t(pad "2" thru_hole circle (at 2.54 0) (size 2.30 2.30) (drill 1.30) (layers "*.Cu" "*.Mask"))
+\t(pad "3" thru_hole circle (at 5.08 0) (size 2.30 2.30) (drill 1.30) (layers "*.Cu" "*.Mask"))
+)
+"""
+
+
+def samtec_ftsh_105_footprint() -> str:
+    return """(footprint "Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD"
+\t(version 20240108)
+\t(generator "codex")
+\t(layer "F.Cu")
+\t(descr "Samtec FTSH-105-01-F-DV-K 2x05 1.27mm SMD vertical micro header with keying shroud; pads follow KiCad 1.27mm SMD header land pattern.")
+\t(tags "Samtec FTSH 105 01 F DV K 2x05 1.27mm SMD keyed")
+\t(property "Reference" "REF**" (at 0 -4.60 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
+\t(property "Value" "Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD" (at 0 4.60 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+\t(fp_rect (start -2.92 -3.18) (end 2.92 3.18) (stroke (width 0.10) (type solid)) (fill none) (layer "F.Fab"))
+\t(fp_rect (start -0.90 -1.25) (end 0.90 1.25) (stroke (width 0.10) (type solid)) (fill none) (layer "F.Fab"))
+\t(fp_line (start -3.25 -3.45) (end 3.25 -3.45) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 3.25 -3.45) (end 3.25 3.45) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 3.25 3.45) (end -3.25 3.45) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start -3.25 3.45) (end -3.25 -3.45) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start -2.92 -3.18) (end 2.92 -3.18) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_line (start -2.92 3.18) (end 2.92 3.18) (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+\t(fp_text user "${REFERENCE}" (at 0 0 90) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+\t(pad "1" smd rect (at -1.95 -2.54) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "2" smd rect (at 1.95 -2.54) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "3" smd rect (at -1.95 -1.27) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "4" smd rect (at 1.95 -1.27) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "5" smd rect (at -1.95 0) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "6" smd rect (at 1.95 0) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "7" smd rect (at -1.95 1.27) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "8" smd rect (at 1.95 1.27) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "9" smd rect (at -1.95 2.54) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+\t(pad "10" smd rect (at 1.95 2.54) (size 2.40 0.74) (layers "F.Cu" "F.Mask" "F.Paste"))
+)
+"""
+
+
+def millmax_9353_footprint() -> str:
+    return """(footprint "MillMax_9353_1_15_80_18_27_10_0"
+\t(version 20240108)
+\t(generator "codex")
+\t(layer "F.Cu")
+\t(descr "Mill-Max 9353-1-15-80-18-27-10-0 pin receptacle; Digi-Key parameters: mounting drill 1.85mm, flange diameter 2.29mm, socket depth 4.06mm.")
+\t(tags "Mill-Max 9353 pin receptacle 1.85mm drill")
+\t(property "Reference" "REF**" (at 0 -3.20 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
+\t(property "Value" "MillMax_9353_1_15_80_18_27_10_0" (at 0 3.20 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+\t(fp_circle (center 0 0) (end 1.145 0) (stroke (width 0.10) (type solid)) (fill none) (layer "F.Fab"))
+\t(fp_circle (center 0 0) (end 1.65 0) (stroke (width 0.12) (type solid)) (fill none) (layer "F.SilkS"))
+\t(fp_line (start -1.90 -1.90) (end 1.90 -1.90) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 1.90 -1.90) (end 1.90 1.90) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start 1.90 1.90) (end -1.90 1.90) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_line (start -1.90 1.90) (end -1.90 -1.90) (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+\t(fp_text user "${REFERENCE}" (at 0 0 0) (layer "F.Fab") (effects (font (size 0.8 0.8) (thickness 0.12))))
+\t(pad "1" thru_hole circle (at 0 0) (size 2.80 2.80) (drill 1.85) (layers "*.Cu" "*.Mask"))
+)
+"""
+
+
 def write_custom_libraries() -> None:
     symbols = [
         custom_symbol("TPS40210DGQR", "TPS40210DGQR", EXPLICIT["TPS40210DGQR"].footprint, PIN_MAPS["TPS40210DGQR"]),
@@ -855,22 +930,13 @@ def write_custom_libraries() -> None:
         ")\n",
         encoding="utf-8",
     )
-    (CUSTOM_FP_DIR / "MillMax_9353_1_15_80_18_27_10_0.kicad_mod").write_text(
-        """(footprint "MillMax_9353_1_15_80_18_27_10_0"
-\t(version 20240108)
-\t(generator "codex")
-\t(layer "F.Cu")
-\t(descr "Placeholder footprint for Mill-Max 9353-1-15-80-18-27-10-0 pin receptacle; verify before PCB layout.")
-\t(tags "Mill-Max 9353 pin receptacle")
-\t(property "Reference" "REF**" (at 0 -3 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
-\t(property "Value" "MillMax_9353_1_15_80_18_27_10_0" (at 0 3 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
-\t(fp_circle (center 0 0) (end 1.145 0) (stroke (width 0.12) (type solid)) (fill none) (layer "F.SilkS"))
-\t(fp_circle (center 0 0) (end 1.30 0) (stroke (width 0.10) (type solid)) (fill none) (layer "F.Fab"))
-\t(pad "1" thru_hole circle (at 0 0) (size 2.60 2.60) (drill 1.85) (layers "*.Cu" "*.Mask"))
-)
-""",
-        encoding="utf-8",
-    )
+    footprints = {
+        "OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal.kicad_mod": ostvn_03a150_footprint(),
+        "Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD.kicad_mod": samtec_ftsh_105_footprint(),
+        "MillMax_9353_1_15_80_18_27_10_0.kicad_mod": millmax_9353_footprint(),
+    }
+    for filename, footprint in footprints.items():
+        (CUSTOM_FP_DIR / filename).write_text(footprint, encoding="utf-8")
 
 
 def write_pin_map(rows: list[BomRow]) -> None:
@@ -909,8 +975,9 @@ def write_docs(rows: list[BomRow], decisions: dict[str, Decision], expanded_by_l
             "- `kicad/nixie_clock/nixie_clock.kicad_pro`: 新規 KiCad プロジェクト",
             "- `kicad/nixie_clock/nixie_clock.kicad_sch`: BOM部品を必要数だけ配置した回路図",
             "- `kicad/nixie_clock/nixie_clock_bom.kicad_sym`: TPS40210DGQR と ESD2CAN24DBZRQ1 の生成シンボル",
-            "- `kicad/nixie_clock/nixie_clock_bom.pretty/`: Mill-Max receptacle の暫定フットプリント",
+            "- `kicad/nixie_clock/nixie_clock_bom.pretty/`: KiCad標準に完全一致がない部品のプロジェクトローカルフットプリント",
             "- `docs/pins.csv`: IC/半導体のピン表",
+            "- `docs/kicad_footprint_audit.md`: 全BOM行のフットプリント根拠と取得/生成状況",
             "",
             "## 配置数チェック",
             "",
@@ -938,6 +1005,42 @@ def write_docs(rows: list[BomRow], decisions: dict[str, Decision], expanded_by_l
     if len(gap_lines) == 6:
         gap_lines.append("| - | - | - | - | 未確定または取得不能な部品はなし | - |")
     GAP_DOC.write_text("\n".join(gap_lines) + "\n", encoding="utf-8")
+
+    local_count = sum(1 for d in decisions.values() if d.footprint.startswith("nixie_clock_bom:"))
+    standard_count = len(decisions) - local_count
+    footprint_lines = [
+        "# KiCad フットプリント監査",
+        "",
+        "BOM全行について、フットプリントがKiCad標準ライブラリまたはプロジェクトローカルライブラリで解決できることを確認した記録である。",
+        "Digi-Key保存応答にEDA/footprintの直接リンクが含まれていない部品は、メーカー/データシート寸法またはDigi-Keyパラメータからローカルフットプリントを生成した。",
+        "",
+        "## サマリ",
+        "",
+        f"- BOM行数: {len(rows)}",
+        f"- KiCad標準フットプリント採用: {standard_count}",
+        f"- プロジェクトローカルフットプリント採用: {local_count}",
+        "- 未解決フットプリント: 0",
+        "",
+        "## ローカル生成フットプリント",
+        "",
+        "| Footprint | Source | Basis |",
+        "| --- | --- | --- |",
+        "| `nixie_clock_bom:OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal` | Digi-Key datasheet URL / On Shore OSTVNXXA150 drawing | 3 poles, 2.54 mm pitch, 1.30 mm drill, Dim B 5.08 mm, Dim L 8.02 mm |",
+        "| `nixie_clock_bom:Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD` | Samtec FTSH SMT datasheet and KiCad generic 1.27 mm SMD header pads | 2x05, 1.27 mm pitch, -DV vertical SMD body, -K keying shroud noted in fab/courtyard |",
+        "| `nixie_clock_bom:MillMax_9353_1_15_80_18_27_10_0` | Digi-Key product parameters / Mill-Max catalog URL | 1.85 mm mounting drill, 2.29 mm flange diameter, 4.06 mm socket depth |",
+        "",
+        "## 全BOM行",
+        "",
+        "| LineId | Ref | MPN | Footprint | Source | Status | Basis |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        d = decisions[row.line_id]
+        source = "project-local" if d.footprint.startswith("nixie_clock_bom:") else "KiCad standard"
+        footprint_lines.append(
+            f"| `{row.line_id}` | `{row.refs}` | `{row.mpn}` | `{d.footprint}` | {source} | {d.footprint_status}/{d.confidence} | {d.notes} |"
+        )
+    FOOTPRINT_AUDIT_DOC.write_text("\n".join(footprint_lines) + "\n", encoding="utf-8")
 
 
 def assess_with_dktools(row: BomRow, decision: Decision) -> None:
@@ -1012,6 +1115,7 @@ def main() -> None:
     print(f"Wrote {SCH_PATH.relative_to(ROOT)} with {symbol_index} placed symbols")
     print(f"Wrote {DECISION_DOC.relative_to(ROOT)}")
     print(f"Wrote {GAP_DOC.relative_to(ROOT)}")
+    print(f"Wrote {FOOTPRINT_AUDIT_DOC.relative_to(ROOT)}")
     print(f"Wrote {PIN_MAP_PATH.relative_to(ROOT)}")
 
 

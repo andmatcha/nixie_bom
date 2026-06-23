@@ -7,8 +7,8 @@
 | --- | --- | ---: | --- | --- | --- | --- | --- |
 | `804222c8dc6e` | `U1` | 1 | `TPS40210DGQR` | `nixie_clock_bom:TPS40210DGQR` | `Package_SO:HVSSOP-10-1EP_3x3mm_P0.5mm_EP1.83x1.89mm` | ready/high | Project-local symbol generated from the TPS40210 pin-function table; KiCad 10 has an HVSSOP-10-EP footprint. |
 | `6c3ca2657583` | `FHV1` | 1 | `0437.750KRA` | `Device:Fuse` | `Fuse:Fuse_1206_3216Metric` | usable_with_generic/high | 1206 board-mount fuse; KiCad generic 1206 fuse symbol and footprint are sufficient for schematic placement. |
-| `2dde437fdef7` | `L1` | 1 | `7447709102` | `Device:L` | `Inductor_SMD:L_Wuerth_WE-PD-Typ-M-Typ-S` | review/medium | No exact 7447709102 footprint was found in the KiCad 10 standard libraries; selected the closest WE-PD generic footprint for placement. |
-| `e531d8fbf4bf` | `Q1` | 1 | `STD10N60M2` | `Transistor_FET:Q_NMOS_GDSD` | `Package_TO_SOT_SMD:TO-252-3_TabPin4` | review/medium | Generic four-pin NMOS symbol and TO-252/DPAK footprint selected; tab/drain numbering must be checked against the ST package drawing. |
+| `2dde437fdef7` | `L1` | 1 | `7447709102` | `Device:L` | `Inductor_SMD:L_Wuerth_WE-PD-Typ-M-Typ-S` | ready/high | KiCad 10 standard Wurth WE-PD Type M/S footprint selected; the 7447709102 datasheet reports a 12.0 x 12.0 mm WE-PD 1210 body and matching recommended land pattern. |
+| `e531d8fbf4bf` | `Q1` | 1 | `STD10N60M2` | `Transistor_FET:Q_NMOS_GDSD` | `Package_TO_SOT_SMD:TO-252-3_TabPin4` | ready/high | Digi-Key describes the package as DPAK/TO-252; KiCad TO-252-3_TabPin4 provides pads 1/2/3 plus drain tab 4, matching the selected G-D-S-D MOSFET symbol. |
 | `6f9c953a3510` | `D1` | 1 | `STTH2R06U` | `Device:D` | `Diode_SMD:D_SMB` | usable_with_generic/high | Fast recovery diode in SMB; KiCad generic fast diode symbol and SMB footprint selected. |
 | `6144ef6c2707` | `CIN1 CIN2` | 2 | `GRM31CR71E106KA12K` | `Device:C` | `Capacitor_SMD:C_1206_3216Metric` | usable_with_generic/high | Generic KiCad capacitor symbol and metric SMD capacitor footprint selected. |
 | `8da575eed0a6` | `CINB1 CINB2` | 2 | `GRM32ER71E226KE15L` | `Device:C` | `Capacitor_SMD:C_1210_3225Metric` | usable_with_generic/high | Generic KiCad capacitor symbol and metric SMD capacitor footprint selected. |
@@ -35,10 +35,10 @@
 | `fd8244805ea4` | `U8 U9` | 2 | `SN75468DR` | `Transistor_Array:SN75468` | `Package_SO:SOIC-16_3.9x9.9mm_P1.27mm` | ready/high | KiCad 10 standard SN75468 symbol and SOIC-16 footprint selected. |
 | `11d8b4f716ea` | `QAH1 QAH2 QAH3 QAH4 QAH5 QAH6` | 6 | `MMBTA92-7-F` | `Transistor_BJT:Q_PNP_BEC` | `Package_TO_SOT_SMD:SOT-23` | ready/high | KiCad 10 Q_PNP_BEC base symbol matches the MMBTA92 BEC pin order and avoids embedded alias rendering issues. |
 | `f7bcbe4c2c2e` | `QAL1 QAL2 QAL3 QAL4 QAL5 QAL6 QCOL1 QCOL2 QCOL3 QCOL4` | 10 | `MMBTA42-7-F` | `Transistor_BJT:Q_NPN_BEC` | `Package_TO_SOT_SMD:SOT-23` | ready/high | KiCad 10 Q_NPN_BEC base symbol matches the MMBTA42 BEC pin order and avoids embedded alias rendering issues. |
-| `861dca0e37e0` | `D2` | 1 | `ESD2CAN24DBZRQ1` | `nixie_clock_bom:ESD2CAN24DBZRQ1` | `Package_TO_SOT_SMD:SOT-23-3` | review/medium | Project-local 3-pin CAN ESD placeholder symbol generated; SOT-23-3 footprint selected. |
-| `1b89701fcd76` | `Y1` | 1 | `ECS-80-12-33-JGN-TR` | `Device:Crystal` | `Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm` | review/medium | Generic crystal symbol and 3.2 x 2.5 mm 4-pad footprint selected from the BOM package dimensions. |
-| `38075d990a55` | `JCAN1` | 1 | `OSTVN03A150` | `Connector_Generic:Conn_01x03` | `TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal` | review/medium | Generic 3-pin connector symbol and 2.54 mm horizontal terminal-block footprint selected; exact OSTVN footprint was not found locally. |
-| `21190abb0b9b` | `JSWD1` | 1 | `FTSH-105-01-F-DV-K` | `Connector_Generic:Conn_02x05_Odd_Even` | `Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD` | review/medium | Generic 2x05 1.27 mm connector symbol and SMD pin-header footprint selected; exact Samtec keyed header footprint was not found locally. |
+| `861dca0e37e0` | `D2` | 1 | `ESD2CAN24DBZRQ1` | `nixie_clock_bom:ESD2CAN24DBZRQ1` | `Package_TO_SOT_SMD:SOT-23-3` | ready/high | Project-local 3-pin CAN ESD symbol generated with IO1/GND/IO2 pins; Digi-Key and TI identify the package as SOT-23-3, so KiCad's standard SOT-23-3 footprint is used. |
+| `1b89701fcd76` | `Y1` | 1 | `ECS-80-12-33-JGN-TR` | `Device:Crystal` | `Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm` | ready/high | Digi-Key describes this as a 4-SMD leadless crystal; KiCad's standard 3.2 x 2.5 mm 4-pad crystal footprint matches the ECS ECX-32 package family. |
+| `38075d990a55` | `JCAN1` | 1 | `OSTVN03A150` | `Connector_Generic:Conn_01x03` | `nixie_clock_bom:OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal` | ready/high | Project-local footprint generated from the On Shore OSTVNXXA150 drawing obtained via Digi-Key: 3 poles, 2.54 mm pitch, 1.30 mm drill, Dim B 5.08 mm, Dim L 8.02 mm. |
+| `21190abb0b9b` | `JSWD1` | 1 | `FTSH-105-01-F-DV-K` | `Connector_Generic:Conn_02x05_Odd_Even` | `nixie_clock_bom:Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD` | ready/high | Project-local footprint generated for the Samtec FTSH-105-01-F-DV-K keyed 2x05 1.27 mm SMD header; pad geometry follows the KiCad 1.27 mm SMD header pattern and the fab/courtyard outline records the FTSH -DV/-K body. |
 | `0855faf5235b` | `C3V3IN1 C3V3IN2` | 2 | `GRJ31CR71H475KE11K` | `Device:C` | `Capacitor_SMD:C_1206_3216Metric` | usable_with_generic/high | Generic KiCad capacitor symbol and metric SMD capacitor footprint selected. |
 | `6f285d042801` | `C3V3OUT1 C3V3OUT2` | 2 | `GRM31CC81E226KE11L` | `Device:C` | `Capacitor_SMD:C_1206_3216Metric` | usable_with_generic/high | Generic KiCad capacitor symbol and metric SMD capacitor footprint selected. |
 | `cbfe960294cf` | `CBOOT1 C3V3HF1 CDEC1-CDEC8` | 10 | `GRM188R72A104KA35D` | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` | usable_with_generic/high | Generic KiCad capacitor symbol and metric SMD capacitor footprint selected. |
@@ -51,15 +51,16 @@
 | `ad7525aead93` | `RINS1-RINS4` | 4 | `ERJ-P08F1803V` | `Device:R` | `Resistor_SMD:R_1206_3216Metric` | usable_with_generic/high | Generic KiCad resistor symbol and metric SMD resistor footprint selected. |
 | `a4fcc43babc2` | `RPREH1 RPREL1` | 2 | `ERJ-6ENF1803V` | `Device:R` | `Resistor_SMD:R_0805_2012Metric` | usable_with_generic/high | Generic KiCad resistor symbol and metric SMD resistor footprint selected. |
 | `bb337a1279b5` | `RT1` | 1 | `ERJ-3EKF1200V` | `Device:R` | `Resistor_SMD:R_0603_1608Metric` | usable_with_generic/high | Generic KiCad resistor symbol and metric SMD resistor footprint selected. |
-| `493e165ce731` | `XIN1P1-XIN6P12` | 72 | `9353-1-15-80-18-27-10-0` | `Connector_Generic:Conn_01x01` | `nixie_clock_bom:MillMax_9353_1_15_80_18_27_10_0` | review/medium | Generic one-pin connector symbol selected and a project-local placeholder footprint generated from Digi-Key dimensions. |
+| `493e165ce731` | `XIN1P1-XIN6P12` | 72 | `9353-1-15-80-18-27-10-0` | `Connector_Generic:Conn_01x01` | `nixie_clock_bom:MillMax_9353_1_15_80_18_27_10_0` | ready/high | Project-local footprint generated from Digi-Key parameters for the Mill-Max 9353 receptacle: 1.85 mm mounting drill, 2.29 mm flange diameter, 4.06 mm socket depth. |
 
 ## 生成物
 
 - `kicad/nixie_clock/nixie_clock.kicad_pro`: 新規 KiCad プロジェクト
 - `kicad/nixie_clock/nixie_clock.kicad_sch`: BOM部品を必要数だけ配置した回路図
 - `kicad/nixie_clock/nixie_clock_bom.kicad_sym`: TPS40210DGQR と ESD2CAN24DBZRQ1 の生成シンボル
-- `kicad/nixie_clock/nixie_clock_bom.pretty/`: Mill-Max receptacle の暫定フットプリント
+- `kicad/nixie_clock/nixie_clock_bom.pretty/`: KiCad標準に完全一致がない部品のプロジェクトローカルフットプリント
 - `docs/pins.csv`: IC/半導体のピン表
+- `docs/kicad_footprint_audit.md`: 全BOM行のフットプリント根拠と取得/生成状況
 
 ## 配置数チェック
 

@@ -11422,7 +11422,7 @@
 			(at 254.00 335.28 0)
 			(effects (font (size 1.27 1.27)))
 		)
-		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "nixie_clock_bom:OnShore_OSTVN03A150_1x03_P2.54mm_Horizontal"
 			(at 254.00 330.20 0)
 			(hide yes)
 			(effects (font (size 1.27 1.27)))
@@ -11489,7 +11489,7 @@
 			(at 330.20 335.28 0)
 			(effects (font (size 1.27 1.27)))
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD"
+		(property "Footprint" "nixie_clock_bom:Samtec_FTSH_105_01_F_DV_K_2x05_P1.27mm_Vertical_SMD"
 			(at 330.20 330.20 0)
 			(hide yes)
 			(effects (font (size 1.27 1.27)))
