@@ -725,7 +725,7 @@ def block_for_ref(row: BomRow, ref: str) -> str:
         return "lv_power"
     if ref.startswith(("U4", "D2", "JCAN", "RT", "RCANSTB", "RCANSHDN")):
         return "can"
-    if ref.startswith(("U2", "Y1", "CY", "CDEC", "JSWD", "RNRST", "RSRCLR", "RENPD", "ROE", "RBOOT")):
+    if ref.startswith(("U2", "Y1", "CY", "CDEC", "JSWD", "RNRST", "RSRCLR", "ROE", "RBOOT")):
         return "control"
     if ref.startswith(
         (
@@ -748,7 +748,7 @@ def block_for_ref(row: BomRow, ref: str) -> str:
         )
     ):
         return "display_driver"
-    if ref == "REN1" or ref.startswith(
+    if ref in {"REN1", "RENPD1"} or ref.startswith(
         (
             "U1",
             "FHV",

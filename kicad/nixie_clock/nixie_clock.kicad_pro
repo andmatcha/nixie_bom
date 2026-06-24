@@ -645,7 +645,7 @@
       {
         "filename": "nixie_clock.kicad_sch",
         "name": "nixie_clock",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5"
       }
     ],
     "used_designators": "",
@@ -653,8 +653,8 @@
   },
   "sheets": [
     [
-      "6da9a6f0-402e-49cc-a2b2-193fa1847e52",
-      "nixie_clock.kicad_sch"
+      "f3caa3fe-1bd4-5c72-9f2f-01bb4e2e04b5",
+      "nixie_clock"
     ]
   ],
   "text_variables": {},
